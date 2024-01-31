@@ -4,15 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfSandbox"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="LightBlue"/>
         </Style>
+
+        <CollectionViewSource x:Key="SortedButtonDataView" Source="{Binding ButtonCollection}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="X" />
+                <scm:SortDescription PropertyName="Y" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        
     </Window.Resources>
     <Grid Background="Black">
-        <ItemsControl ItemsSource="{Binding ButtonCollection}">
+        <ItemsControl ItemsSource="{Binding Source={StaticResource SortedButtonDataView}}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="20" Columns="3"/>
